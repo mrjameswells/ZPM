@@ -9,7 +9,6 @@ component {
 		param request.attributes = structNew();
 
 		if(   (left(arguments.template,6) EQ '/view/')    ){
-			
 			//abs not found, try /appdir then try /domaindir
 			if(   fileExists(expandPath('/appDir' & arguments.template))   ){
 				arguments.template = '/appDir' & arguments.template;
@@ -19,10 +18,9 @@ component {
 				writeOutput('Invalid control configuration: ' & arguments.template);
 				abort;
 			}
-				
 		}
 
-			
+		
 		
 		var pageOut = '';
 		savecontent variable="pageOut"{
@@ -38,8 +36,6 @@ component {
 		//writeOutput(request.output);
 		return pageOut;
 	}
-
-	
 }
 
  

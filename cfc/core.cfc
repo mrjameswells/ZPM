@@ -1,5 +1,8 @@
 ﻿<cfcomponent>
-
+	<!--- basic utility functions --->
+		
+		
+		
 	<cffunction name="isMethod" returntype="boolean" access="public" hint="">
 		<cfargument name="cfc" required="true" >
 		<cfargument name="method" required="true" >
@@ -17,14 +20,6 @@
 		<cfreturn false>
 		
 	</cffunction>
-
 	
-	<cffunction name="formParamList" returntype="void" access="public" hint="sets list of form values to default value">
-		<cfargument name="formList" required="true">
-		<cfargument name="default" required="false" default="">
-		<cfloop list="#arguments.formList#" index="x" >
-			<cfparam name="form.#x#" default="#arguments.default#" >
-		</cfloop>  
-	</cffunction>	
 			
 </cfcomponent>
