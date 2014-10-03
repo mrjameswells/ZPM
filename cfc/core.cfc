@@ -1,25 +1,19 @@
-﻿<cfcomponent>
-	<!--- basic utility functions --->
-		
-		
-		
-	<cffunction name="isMethod" returntype="boolean" access="public" hint="">
-		<cfargument name="cfc" required="true" >
-		<cfargument name="method" required="true" >
-		<cftry>
-			<cfset cfcInfo = getComponentMetadata("#arguments.cfc#")>
-			<cfcatch type="any"  >
-				<cfreturn false>
-			</cfcatch> 
-		</cftry>
-		<cfloop index="x" from="1" to="#arrayLen(cfcInfo.functions)#">
-			<cfif cfcInfo.functions[x].name EQ arguments.method>
-				<cfreturn true>
-			</cfif>
-		</cfloop>
-		<cfreturn false>
-		
-	</cffunction>
+﻿component{
+	//common utilitiy functions accessible by application.zpm.functionName(...)
 	
-			
-</cfcomponent>
+	public boolean function isMethod(required string cfc, required string method){
+		try{
+			var cfcInfo = getComponentMetadata("#arguments.cfc#");
+			for(func in cfcInfo.functions){
+				if(func.name EQ arguments.method){
+			 		return true;  
+			 	}
+			}
+			return false;
+		}catch(any e){
+			return false;
+		}
+	}
+
+
+}

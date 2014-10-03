@@ -1,17 +1,10 @@
 ﻿component {
 /*
     Zero Point Module Framework
-    v3.1
+    v3.2.100
     
     Author:  James Wells  (mrjameswells@gmail.com)
 
-    How to setup:
-	- Create a server alias /zpm to the ZPM application directory
-	  For example  http://domain.com/zpm  should map to c:\.....\zpm
-	- Or place the zpm folder in your root application directory
-	- Use the /zpm/examples/skel to setup your applications
- 
-	
 */
 
 
@@ -52,21 +45,22 @@
 		request.method = listLast(url.c,'.');
 		request.controller = "appDir.cfc." & left(url.c,len(url.c)-len(request.method)-1);
 
-		if(isMethod(request.controller,request.method)){
+		if(application.zpm.isMethod(request.controller,request.method)){
+			//call controller init
+			var controlObj = new "#request.controller#"();
 			
-			//onRequest
-			if(isMethod(request.controller,"onControlStart")){
-				invoke(request.controller,"onControlStart");
+			//get available controllers
+			var availableControllers  = structKeyExists(controlObj,"controllers") ? controlObj.controllers : arrayNew(1);
+			   
+			//if method is a controller type, okay  
+			if(arrayContains(availableControllers,request.method)){
+				controlObj.fn = controlObj[request.method];
+				controlObj.fn();	
+			}else{
+				writeOutput("404 not found");
+				abort;
 			}
-			
-			//request
-			invoke(request.controller,request.method);
-			
-			//onRequestEnd
-			if(isMethod(request.controller,"onControlStartEnd")){
-				invoke(request.controller,"onControlStartEnd");
-			}
-
+		
 			//display the page content			
 			if(request.view NEQ ''){
 				var pageContent = application.zpm.view.page(request.view);
@@ -85,13 +79,4 @@
 	
 
 
-	public boolean function  isMethod(required string cfc, required string method){
-		var cfcInfo = getComponentMetadata("#arguments.cfc#");
-		 for(func in cfcInfo.functions){
-		 	 if(func.name EQ arguments.method){
-		 	 	return true;  
-		 	 }
-		 }
-		 return false;
-	}
 }

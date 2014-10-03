@@ -4,7 +4,7 @@ component extends="zpm.Application" {
 	this.sessiontimeout 		= CreateTimeSpan(0,0,30,0);
 	this.loginstorage			= "session";
 	this.applicationTimeout 	= CreateTimeSpan(0,0,30,0);
-
+	this.name 					= 'project1';
 	request.defaultControl='public.hello';
 
 	
