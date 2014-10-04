@@ -1,7 +1,7 @@
 ﻿component {
 /*
     Zero Point Module Framework
-    v3.2.100
+    v3.2.101
     
     Author:  James Wells  (mrjameswells@gmail.com)
 
@@ -65,6 +65,9 @@
 			if(request.view NEQ ''){
 				var pageContent = application.zpm.view.page(request.view);
 				writeOutput(pageContent);
+			}else{
+				writeOutput('Nothing to view');
+				abort;
 			}
 			
 		}else{
