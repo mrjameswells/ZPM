@@ -11,6 +11,13 @@
     		<cfreturn />    
     	</cffunction>
 
+		<cffunction name="cfhtmlhead" returntype="void" access="public" hint="">    
+    		<cfargument name="content" required="true" >    
+			<cfhtmlhead text="#arguments.content#"  />			
+    		<cfreturn />    
+    	</cffunction>
+
+
 
 
 </cfcomponent>

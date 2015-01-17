@@ -1,10 +1,36 @@
 component {
 	public void function init(){
 		//do nothing
+		this.ZPMWebRootDir = '/zpm/';
 		return;
 	}	
 
-
+	//public 
+	// application.zpm.view.head('jquery,bootstrap,jqui,')
+ 
+	public void function head(required string headList){
+		var i = 0; 
+		for(i=1; i LTE listLen(arguments.headList); i++){
+			var scriptRequest = listGetAt(arguments.headList,i);
+			application.zpm.tagSupport.cfhtmlhead(getScript('jq')) ;
+			
+		}
+	}
+	
+	public string function getScript(required string scriptName){
+		var htmlScript = '';
+		
+		switch(arguments.scriptName){
+			case 'jquery': case 'jq':
+			htmlScript='
+			
+			';
+			break;
+		}
+		
+		return htmlScript;
+	}
+	
 	public string function page(required string template, string type='view'){
 		param request.attributes = structNew();
 
